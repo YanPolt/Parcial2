@@ -12,23 +12,17 @@ function GaleriaCuartos(props) {
   useEffect(() => {
     const urlAPI =
       "https://gist.githubusercontent.com/josejbocanegra/92c90d5f2171739bd4a76d639f1271ea/raw/9effd124c825f7c2a7087d4a50fa4a91c5d34558/rooms.json";
-    if (!navigator.onLine) {
-      if (localStorage.getItem("cuartos") === null) {
-        setCuartos("Cargando cuartos...");
-      } else {
-        setCuartos(JSON.parse(localStorage.getItem("cuartos")));
-      }
-    } else {
-      fetch(urlAPI)
-        .then((res) => res.json())
-        .then((data) => {
-          let cuartosEspacio = data.filter(
-            (d) => d.homeId === props.espacioSelecionado
-          );
-          setCuartos(cuartosEspacio);
-          localStorage.setItem("cuartos", JSON.stringify(cuartosEspacio));
-        });
-    }
+
+    fetch(urlAPI)
+      .then((res) => res.json())
+      .then((data) => {
+        let cuartosEspacio = data.filter(
+          (d) => d.homeId === props.espacioSelecionado
+        );
+        setCuartos(cuartosEspacio);
+        localStorage.setItem("cuartos", JSON.stringify(cuartosEspacio));
+      });
+
     setCuartoSelec();
   }, [props.espacioSelecionado]);
 

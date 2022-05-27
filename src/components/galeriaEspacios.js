@@ -11,20 +11,13 @@ function GalariaEspacios() {
   useEffect(() => {
     const urlAPI =
       "https://gist.githubusercontent.com/josejbocanegra/0067d2b28b009140fee423cfc84e40e6/raw/6e6b11160fbcacb56621b6422684d615dc3a0d33/spaces.json";
-    if (!navigator.onLine) {
-      if (localStorage.getItem("espacios") === null) {
-        setEspacios("Cargando espacios...");
-      } else {
-        setEspacios(JSON.parse(localStorage.getItem("espacios")));
-      }
-    } else {
-      fetch(urlAPI)
-        .then((res) => res.json())
-        .then((data) => {
-          setEspacios(data);
-          localStorage.setItem("espacios", JSON.stringify(data));
-        });
-    }
+
+    fetch(urlAPI)
+      .then((res) => res.json())
+      .then((data) => {
+        setEspacios(data);
+        localStorage.setItem("espacios", JSON.stringify(data));
+      });
   }, []);
 
   function manejadorEspacioSelec(espacio) {
